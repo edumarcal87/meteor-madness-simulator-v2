@@ -68,6 +68,7 @@ Permite **simular cenários de impacto de asteroides**, visualizar **efeitos pre
 # na raiz do projeto
 python -m http.server 5500
 # acesse http://localhost:5500
+```
 
 🧩 Dados e fontes
 
