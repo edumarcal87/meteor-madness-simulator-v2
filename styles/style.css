@@ -183,3 +183,22 @@ body{
   display:flex;align-items:center;gap:12px;margin:6px 0 14px;
   flex-wrap:wrap; /* novo */
 }
+
+/* Tooltips acessíveis */
+.tip{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:18px; height:18px; margin-left:6px; border-radius:50%;
+  border:1px solid #2b3a57; background:#0a1322; color:#a6b1c2; font-weight:700; font-size:11px;
+  cursor:pointer; position:relative; line-height:1;
+}
+.tip:hover, .tip:focus{ outline:none; border-color:var(--accent); color:#dbeafe; background:#0c1730 }
+.tip::after{
+  content: attr(data-tip);
+  position:absolute; z-index:20; left:50%; transform:translateX(-50%) translateY(8px);
+  min-width:200px; max-width:320px; padding:8px 10px; border-radius:10px;
+  background:#0f1b2f; border:1px solid #22304a; color:#e5e7eb; font-size:12px; line-height:1.4;
+  box-shadow: var(--shadow);
+  opacity:0; pointer-events:none; transition:opacity .12s ease;
+  white-space:normal;
+}
+.tip.open::after, .tip:hover::after, .tip:focus::after{ opacity:1; }

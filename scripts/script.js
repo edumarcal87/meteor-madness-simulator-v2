@@ -341,3 +341,23 @@ function mitigationFactor(code){
     default:    return 1.00; // último minuto → sem efeito
   }
 }
+
+// ---- Tooltips acessíveis ----
+document.addEventListener('DOMContentLoaded', () => {
+  const tips = Array.from(document.querySelectorAll('.tip'));
+  tips.forEach(t => {
+    // mouse
+    t.addEventListener('mouseenter', () => t.classList.add('open'));
+    t.addEventListener('mouseleave', () => t.classList.remove('open'));
+    // teclado
+    t.addEventListener('focus', () => t.classList.add('open'));
+    t.addEventListener('blur', () => t.classList.remove('open'));
+    // Esc para fechar
+    t.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        t.classList.remove('open');
+        t.blur();
+      }
+    });
+  });
+});

@@ -38,7 +38,11 @@
       </div>
 
       <div class="control-group">
-      <label class="control-label">Mitigação (agir antes do impacto)</label>
+      <label class="control-label">
+        Mitigação (agir antes do impacto)
+        <button class="tip" aria-label="Sobre mitigação" data-tip="Quanto mais cedo detectamos e agimos, menor desvio é necessário para evitar o impacto. Começar anos antes é muito mais eficaz que no último minuto.">?</button>
+      </label>
+
       <div class="btn-group" data-name="mitigation">
         <button class="btn filled" data-value="10a" aria-pressed="true">10 anos</button>
         <button class="btn outline" data-value="5a">5 anos</button>
@@ -51,7 +55,10 @@
 
 
       <div class="control-group">
-        <label class="control-label">Tamanho do asteroide</label>
+        <label class="control-label">
+          Tamanho do asteroide
+          <button class="tip" aria-label="Sobre o tamanho" data-tip="Diâmetro aproximado do objeto. Maior diâmetro → maior massa e energia de impacto.">?</button>
+        </label>
         <div class="btn-group" data-name="size">
           <button class="btn outline" data-value="pequeno">Pequeno</button>
           <button class="btn filled" data-value="medio" aria-pressed="true">Médio</button>
@@ -60,7 +67,11 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label">Velocidade relativa</label>
+        <label class="control-label">
+          Velocidade relativa
+          <button class="tip" aria-label="Sobre a velocidade" data-tip="Velocidade em relação à Terra no momento de aproximação. Energia cresce com o quadrado da velocidade.">?</button>
+        </label>
+
         <div class="btn-group" data-name="speed">
           <button class="btn outline" data-value="lento">Lento</button>
           <button class="btn filled" data-value="rapido" aria-pressed="true">Rápido</button>
@@ -69,7 +80,11 @@
       </div>
 
       <div class="control-group">
-        <label class="control-label">Local de impacto</label>
+        <label class="control-label">
+          Local de impacto
+          <button class="tip" aria-label="Sobre o local" data-tip="Terrenos diferentes causam efeitos distintos: oceano favorece tsunami; interior tende a cratera e tremor.">?</button>
+        </label>
+
         <div class="btn-group wrap" data-name="terrain">
           <button class="btn outline" data-value="oceano">Oceano</button>
           <button class="btn outline" data-value="costa">Costa/Cidade</button>
@@ -135,15 +150,27 @@
           </div>
           <div class="facts">
           <div class="fact">
-            <span class="fact-label">Energia estimada</span>
+            <span class="fact-label">
+              Energia estimada
+              <button class="tip" aria-label="Energia estimada" data-tip="Estimativa educativa da energia cinética no impacto, em megatoneladas de TNT (Mt). Não é um modelo físico completo.">?</button>
+            </span>
+
             <span class="fact-value" id="fact-energy">—</span>
           </div>
           <div class="fact">
-            <span class="fact-label">Cratera (~diâmetro)</span>
+            <span class="fact-label">
+              Cratera (~diâmetro)
+              <button class="tip" aria-label="Cratera" data-tip="Estimativa simplificada do diâmetro da cratera com base na energia (escala aproximada para fins didáticos).">?</button>
+            </span>
+
             <span class="fact-value" id="fact-crater">—</span>
           </div>
           <div class="fact">
-            <span class="fact-label">Índice de energia</span>
+            <span class="fact-label">
+              Índice de energia
+              <button class="tip" aria-label="Índice de energia" data-tip="Índice 1–9 obtido por peso(tamanho) × peso(velocidade). Usado para classificar BAIXO/MÉDIO/ALTO conforme o terreno.">?</button>
+            </span>
+
             <span class="fact-value" id="fact-index">—</span>
           </div>
         </div>
