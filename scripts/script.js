@@ -167,6 +167,6 @@ function mapSpeedToBand(kms) {
 function setSelectedNEO(neo){
   const el = document.getElementById('neo-selected');
   if(!el || !neo) return;
-  el.textContent = `Objeto selecionado: ${neo.name} — ~${neo.approx_diameter_m} m @ ~${neo.velocity_kms} km/s (${neo.example_date})`;
+  el.textContent = `NEO: ${neo.name} </br>— ~${neo.approx_diameter_m} m @ ~${neo.velocity_kms} km/s (${neo.example_date})`;
 }
 
