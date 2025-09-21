@@ -165,3 +165,9 @@ body{
 @media (max-width: 980px){
   .facts{ grid-template-columns:1fr; }
 }
+
+.export-row{
+  margin-top:10px;
+  display:flex;
+  justify-content:flex-end;
+}

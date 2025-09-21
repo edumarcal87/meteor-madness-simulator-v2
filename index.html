@@ -13,6 +13,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="assets/icons/site.webmanifest">
   <link rel="icon" href="assets/icons/favicon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 </head>
 <body>
   <header class="app-header">
@@ -135,6 +136,9 @@
           <p class="disclaimer">
             🔗 Dados: NASA NEO (tamanho/velocidade) + USGS (terreno). Versão educativa/simplificada.
           </p>
+          <div class="export-row">
+            <button class="btn" id="btn-export">📷 Baixar imagem</button>
+          </div>
         </aside>
       </div>
     </section>

@@ -272,3 +272,26 @@ function formatNumber(n, digits = 1){
   }
   return n.toLocaleString('pt-BR', { maximumFractionDigits: digits, minimumFractionDigits: digits });
 }
+
+// ---- Exportar imagem do painel direito ----
+document.addEventListener('DOMContentLoaded', () => {
+  const exportBtn = document.getElementById('btn-export');
+  const rightPanel = document.querySelector('.panel-right');
+  if (exportBtn && rightPanel) {
+    exportBtn.addEventListener('click', async () => {
+      try {
+        const canvas = await html2canvas(rightPanel, {
+          backgroundColor: null,
+          scale: window.devicePixelRatio > 1 ? 2 : 1
+        });
+        const link = document.createElement('a');
+        link.download = `meteor-madness-${Date.now()}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (e) {
+        console.error('Falha ao exportar imagem:', e);
+        alert('Não foi possível gerar a imagem. Tente novamente.');
+      }
+    });
+  }
+});
