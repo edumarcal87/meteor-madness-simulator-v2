@@ -138,6 +138,7 @@ function pickRandomNEO() {
 
   const note = `Exemplo: ${neo.name} — diâmetro ~ ${neo.approx_diameter_m} m, velocidade ~ ${neo.velocity_kms} km/s.`;
   simulate(note);
+  setSelectedNEO(neo);
 }
 
 function mapSizeToBand(meters) {
@@ -162,3 +163,10 @@ function mapSpeedToBand(kms) {
   if (kms <= (bands.lento?.max_kms ?? 15)) return 'lento';
   return 'rapido';
 }
+
+function setSelectedNEO(neo){
+  const el = document.getElementById('neo-selected');
+  if(!el || !neo) return;
+  el.textContent = `Objeto selecionado: ${neo.name} — ~${neo.approx_diameter_m} m @ ~${neo.velocity_kms} km/s (${neo.example_date})`;
+}
+
