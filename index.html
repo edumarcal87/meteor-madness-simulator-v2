@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="app-header">
@@ -15,12 +15,18 @@
       <span class="logo">🌍</span>
       <h1>Meteor Madness — Simulador de Impacto</h1>
     </div>
-    <div class="version">v0.1 (layout)</div>
+    <div class="version">v0.1</div>
   </header>
 
   <main class="container">
+    <!-- Painel esquerdo: Controles -->
     <section class="panel panel-left">
       <h2 class="panel-title">⚙️ Controles</h2>
+
+      <!-- Toolbar com o botão da NASA no topo -->
+      <div class="controls-toolbar">
+        <button class="btn ghost" id="btn-nasa">🔭 Usar Exemplo da NASA</button>
+      </div>
 
       <div class="control-group">
         <label class="control-label">Tamanho do asteroide</label>
@@ -51,16 +57,17 @@
       </div>
 
       <div class="actions">
-        <button class="btn ghost" id="btn-nasa">🔭 Usar Exemplo da NASA</button>
         <button class="btn primary" id="btn-simular">▶ Simular</button>
       </div>
     </section>
 
+    <!-- Painel direito: Mapa & Resultados -->
     <section class="panel panel-right">
       <h2 class="panel-title">🌐 Mapa & Resultados</h2>
 
       <div class="canvas-row">
         <div class="earth-canvas" role="img" aria-label="Globo estilizado mostrando a Terra">
+          <!-- Planeta estilizado (placeholder) -->
           <div class="planet">
             <div class="continent c1"></div>
             <div class="continent c2"></div>
@@ -69,7 +76,11 @@
         </div>
 
         <aside class="results-card">
+          <!-- Exibe o NEO selecionado pelo botão da NASA -->
+          <p id="neo-selected" class="neo-selected" aria-live="polite">Objeto selecionado: —</p>
+
           <h3>📊 Efeitos Previstos</h3>
+
           <div class="meter">
             <div class="meter-label">
               <span>🌊 Tsunami</span><span class="level">ALTO</span>
@@ -100,9 +111,6 @@
           <p class="disclaimer">
             🔗 Dados: NASA NEO (tamanho/velocidade) + USGS (terreno). Versão educativa/simplificada.
           </p>
-          <p id="neo-selected" class="neo-selected" aria-live="polite">
-            Objeto selecionado: —'
-          </p>
         </aside>
       </div>
     </section>
@@ -112,6 +120,7 @@
     <small>© Equipe Infantil — Space Apps</small>
   </footer>
 
-  <script src="scripts/script.js"></script>
+  <!-- Importa o script da pasta /scripts -->
+  <script src="scripts/script.js" defer></script>
 </body>
 </html>
