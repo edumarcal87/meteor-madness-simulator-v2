@@ -72,27 +72,27 @@ python -m http.server 5500
 
 🧩 Dados e fontes
 
-NEOs (educativo): rules/neos.json contém exemplos aproximados (diâmetro, velocidade, data) apenas para demonstração.
+**NEOs (educativo)**: rules/neos.json contém exemplos aproximados (diâmetro, velocidade, data) apenas para demonstração.
 
-Regras: rules/rules.json define bandas, pesos e thresholds por terreno.
+**Regras**: rules/rules.json define bandas, pesos e thresholds por terreno.
 
-Mapa: Tiles do OpenStreetMap (atribuição automática via Leaflet).
+**Mapa**: Tiles do OpenStreetMap (atribuição automática via Leaflet).
 
-Referências: NASA NEO (dados públicos) e USGS (contexto de terreno/efeitos) — não integramos APIs diretamente nesta versão; usamos valores simplificados para fins didáticos.
+**Referências**: NASA NEO (dados públicos) e USGS (contexto de terreno/efeitos) — não integramos APIs diretamente nesta versão; usamos valores simplificados para fins didáticos.
 
-Aviso: Este projeto é educativo. As estimativas não representam previsões oficiais e não substituem análise científica.
+**Aviso**: Este projeto é educativo. As estimativas não representam previsões oficiais e não substituem análise científica.
 
 🛠️ Tecnologias
 
-Front-end: HTML, CSS, JavaScript Vanilla
+**Front-end**: HTML, CSS, JavaScript Vanilla
 
-Mapas: Leaflet 1.9.x + OpenStreetMap tiles
+**Mapas**: Leaflet 1.9.x + OpenStreetMap tiles
 
-Exportar PNG: html2canvas
+**Exportar PNG**: html2canvas
 
-Hospedagem: GitHub Pages
+**Hospedagem**: GitHub Pages
 
-Acessibilidade/UX: Tooltips, foco, contrastes, responsividade
+**Acessibilidade/UX**: Tooltips, foco, contrastes, responsividade
 
-Branding: Favicon/manifest (PWA-ready)
+**Branding**: Favicon/manifest (PWA-ready)
 
