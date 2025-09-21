@@ -170,3 +170,33 @@ function setSelectedNEO(neo){
   el.textContent = `NEO: ${neo.name} - ~${neo.approx_diameter_m} m @ ~${neo.velocity_kms} km/s (${neo.example_date})`;
 }
 
+// ---- Modal "Como funciona" ----
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('how-modal');
+  const open = document.getElementById('btn-info');
+  const closeBtn = document.getElementById('btn-close-modal');
+  const ok = document.getElementById('btn-ok-modal');
+
+  function openModal(){
+    if(!modal) return;
+    modal.hidden = false;
+    // foco acessível
+    ok?.focus();
+  }
+  function closeModal(){
+    if(!modal) return;
+    modal.hidden = true;
+    open?.focus();
+  }
+
+  open?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  ok?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target.matches('.modal-backdrop,[data-close]')) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!modal || modal.hidden) return;
+    if (e.key === 'Escape') closeModal();
+  });
+});

@@ -63,7 +63,11 @@
 
     <!-- Painel direito: Mapa & Resultados -->
     <section class="panel panel-right">
-      <h2 class="panel-title">🌐 Mapa & Resultados</h2>
+      <h2 class="panel-title">
+        🌐 Mapa & Resultados
+        <button id="btn-info" class="info-btn" aria-haspopup="dialog" aria-controls="how-modal" aria-label="Como funciona">ℹ️</button>
+      </h2>
+
 
       <div class="canvas-row">
         <div class="earth-canvas" role="img" aria-label="Globo estilizado mostrando a Terra">
@@ -119,6 +123,31 @@
   <footer class="app-footer">
     <small>© Equipe Infantil — Space Apps</small>
   </footer>
+
+  <!-- Modal: Como funciona -->
+<div id="how-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="how-title" hidden>
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="document">
+    <header class="modal-head">
+      <h3 id="how-title">Como funciona</h3>
+      <button class="modal-close" id="btn-close-modal" aria-label="Fechar">✖</button>
+    </header>
+    <div class="modal-body">
+      <p><strong>Fontes de dados:</strong> usamos <em>NASA NEO</em> (tamanho / velocidade) e contexto de terreno inspirado em dados do <em>USGS</em> (oceano, costa, interior, floresta) para efeitos educativos.</p>
+      <ul>
+        <li><strong>Bandas</strong>: Tamanho (pequeno/médio/gigante) e Velocidade (lento/rápido/super) são faixas simplificadas.</li>
+        <li><strong>Índice de energia</strong>: <code>energy_index = peso(tamanho) × peso(velocidade)</code>, variando de 1 a 9.</li>
+        <li><strong>Níveis</strong>: Para cada <em>terreno</em>, comparamos o índice com os <em>thresholds</em> para classificar: <strong>BAIXO</strong>, <strong>MÉDIO</strong> ou <strong>ALTO</strong>.</li>
+        <li><strong>Observação</strong>: É um modelo educativo, não uma simulação física completa.</li>
+      </ul>
+      <p>Use o botão “🔭 Usar Exemplo da NASA” para preencher com um objeto real (simplificado) e ver o resultado.</p>
+    </div>
+    <footer class="modal-foot">
+      <button class="btn" id="btn-ok-modal">Entendi</button>
+    </footer>
+  </div>
+</div>
+
 
   <!-- Importa o script da pasta /scripts -->
   <script src="scripts/script.js" defer></script>

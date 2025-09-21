@@ -103,3 +103,36 @@ body{
   .actions{flex-direction:column}
   .btn-group{flex-wrap:wrap}
 }
+
+
+/* Info button no título */
+.info-btn{
+  margin-left:8px; border:none; background:transparent; color:var(--muted);
+  cursor:pointer; font-size:16px; padding:4px 8px; border-radius:8px;
+}
+.info-btn:hover{ color:var(--accent); background:#0a1322 }
+
+/* Modal */
+.modal[hidden]{ display:none }
+.modal{ position:fixed; inset:0; z-index:50; display:grid; place-items:center }
+.modal-backdrop{
+  position:absolute; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(2px);
+}
+.modal-card{
+  position:relative; width:min(680px, 92vw); max-height:80vh; overflow:auto;
+  background:var(--panel); border:1px solid #233047; border-radius:16px; box-shadow:var(--shadow);
+}
+.modal-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 18px; border-bottom:1px solid #1f2a3f;
+}
+.modal-head h3{ margin:0; color:#e2e8f0 }
+.modal-close{
+  border:none; background:transparent; color:var(--muted); cursor:pointer; font-size:18px; padding:6px 8px; border-radius:8px;
+}
+.modal-close:hover{ color:#fca5a5; background:#0a1322 }
+.modal-body{ padding:16px 18px; color:#cbd5e1; line-height:1.6 }
+.modal-body code{ background:#0a1322; padding:2px 6px; border-radius:6px; border:1px solid #1f2a3f; color:#e2e8f0 }
+.modal-foot{ padding:14px 18px; border-top:1px solid #1f2a3f; display:flex; justify-content:flex-end }
+.modal-foot .btn{ border:2px solid var(--accent); color:var(--accent) }
+.modal-foot .btn:hover{ transform:translateY(-1px) }
