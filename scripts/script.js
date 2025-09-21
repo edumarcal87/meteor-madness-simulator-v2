@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadData() {
   try {
     const [rules, neos] = await Promise.all([
-      fetch('../rules/rules.json').then(r => r.json()),
-      fetch('../rules/neos.json').then(r => r.json()),
+      fetch('rules/rules.json').then(r => r.json()),
+      fetch('rules/neos.json').then(r => r.json()),
     ]);
     state.rules = rules;
     state.neos = neos;
