@@ -3,112 +3,117 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meteor Madness — Impact Simulator</title>
+  <title>Meteor Madness — Simulador de Impacto</title>
+
+  <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css" />
+
+  <!-- Icons / Manifest -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
   <link rel="manifest" href="assets/icons/site.webmanifest">
   <link rel="icon" href="assets/icons/favicon.ico">
+
+  <!-- Export image helper -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 </head>
 <body>
   <header class="app-header">
     <div class="brand">
       <span class="logo">🌍</span>
-      <h1>Meteor Madness — Impact Simulator</h1>
+      <h1><span data-i18n="app.title">Meteor Madness — Simulador de Impacto</span></h1>
     </div>
-    <div class="version">v0.1</div>
+    <div class="version">
+      <button id="btn-lang" class="lang-toggle" aria-label="Mudar idioma">EN</button>
+      <span>v0.1</span>
+    </div>
   </header>
 
   <main class="container">
     <!-- Painel esquerdo: Controles -->
     <section class="panel panel-left">
-      <h2 class="panel-title">⚙️ Controles
-        <button id="btn-info" class="info-btn" aria-haspopup="dialog" aria-controls="how-modal" aria-label="Como funciona">ℹ️</button>
-      </h2>
+      <h2 class="panel-title" data-i18n="panel.controls">⚙️ Controles</h2>
 
-      <!-- Toolbar com o botão da NASA no topo -->
+      <!-- Toolbar com botões NASA -->
       <div class="controls-toolbar">
-        <button class="btn ghost" id="btn-nasa">🔭 CARREGAR EXEMPLO</button>
-        <button class="btn ghost" id="btn-next-neo">➡️ Próximo exemplo</button>
+        <button class="btn ghost" id="btn-nasa" data-i18n="btn.nasa">🔭 Usar Exemplo da NASA</button>
+        <button class="btn ghost" id="btn-next-neo" data-i18n="btn.next">➡️ Próximo exemplo</button>
       </div>
 
-      <div class="control-group">
-      <label class="control-label">
-        Mitigação (agir antes do impacto)
-        <button class="tip" aria-label="Sobre mitigação" data-tip="Quanto mais cedo detectamos e agimos, menor desvio é necessário para evitar o impacto. Começar anos antes é muito mais eficaz que no último minuto.">?</button>
-      </label>
-
-      <div class="btn-group" data-name="mitigation">
-        <button class="btn filled" data-value="10a" aria-pressed="true">10 anos</button>
-        <button class="btn outline" data-value="5a">5 anos</button>
-        <button class="btn outline" data-value="1a">1 ano</button>
-        <button class="btn outline" data-value="1m">1 mês</button>
-        <button class="btn outline" data-value="0d">Último minuto</button>
-      </div>
-      <small class="help-text">Quanto antes agir, maior o desvio e menores os efeitos.</small>
-    </div>
-
-
+      <!-- Mitigação -->
       <div class="control-group">
         <label class="control-label">
-          Tamanho do asteroide
+          <span data-i18n="label.mitigation">Mitigação (agir antes do impacto)</span>
+          <button class="tip" aria-label="Sobre mitigação" data-tip="Quanto mais cedo detectamos e agimos, menor desvio é necessário para evitar o impacto. Começar anos antes é muito mais eficaz que no último minuto.">?</button>
+        </label>
+        <div class="btn-group" data-name="mitigation">
+          <button class="btn filled" data-value="10a" aria-pressed="true" data-i18n="opt.mitigation.10y">10 anos</button>
+          <button class="btn outline" data-value="5a" data-i18n="opt.mitigation.5y">5 anos</button>
+          <button class="btn outline" data-value="1a" data-i18n="opt.mitigation.1y">1 ano</button>
+          <button class="btn outline" data-value="1m" data-i18n="opt.mitigation.1m">1 mês</button>
+          <button class="btn outline" data-value="0d" data-i18n="opt.mitigation.0d">Último minuto</button>
+        </div>
+        <small class="help-text">Quanto antes agir, maior o desvio e menores os efeitos.</small>
+      </div>
+
+      <!-- Tamanho -->
+      <div class="control-group">
+        <label class="control-label">
+          <span data-i18n="label.size">Tamanho do asteroide</span>
           <button class="tip" aria-label="Sobre o tamanho" data-tip="Diâmetro aproximado do objeto. Maior diâmetro → maior massa e energia de impacto.">?</button>
         </label>
         <div class="btn-group" data-name="size">
-          <button class="btn outline" data-value="pequeno">Pequeno</button>
-          <button class="btn filled" data-value="medio" aria-pressed="true">Médio</button>
-          <button class="btn outline" data-value="gigante">Gigante</button>
+          <button class="btn outline" data-value="pequeno" data-i18n="opt.size.small">Pequeno</button>
+          <button class="btn filled" data-value="medio" aria-pressed="true" data-i18n="opt.size.medium">Médio</button>
+          <button class="btn outline" data-value="gigante" data-i18n="opt.size.large">Gigante</button>
         </div>
       </div>
 
+      <!-- Velocidade -->
       <div class="control-group">
         <label class="control-label">
-          Velocidade relativa
+          <span data-i18n="label.speed">Velocidade relativa</span>
           <button class="tip" aria-label="Sobre a velocidade" data-tip="Velocidade em relação à Terra no momento de aproximação. Energia cresce com o quadrado da velocidade.">?</button>
         </label>
-
         <div class="btn-group" data-name="speed">
-          <button class="btn outline" data-value="lento">Lento</button>
-          <button class="btn filled" data-value="rapido" aria-pressed="true">Rápido</button>
-          <button class="btn outline" data-value="super">Super</button>
+          <button class="btn outline" data-value="lento" data-i18n="opt.speed.slow">Lento</button>
+          <button class="btn filled" data-value="rapido" aria-pressed="true" data-i18n="opt.speed.fast">Rápido</button>
+          <button class="btn outline" data-value="super" data-i18n="opt.speed.super">Super</button>
         </div>
       </div>
 
+      <!-- Terreno -->
       <div class="control-group">
         <label class="control-label">
-          Local de impacto
+          <span data-i18n="label.terrain">Local de impacto</span>
           <button class="tip" aria-label="Sobre o local" data-tip="Terrenos diferentes causam efeitos distintos: oceano favorece tsunami; interior tende a cratera e tremor.">?</button>
         </label>
-
         <div class="btn-group wrap" data-name="terrain">
-          <button class="btn outline" data-value="oceano">Oceano</button>
-          <button class="btn outline" data-value="costa">Costa/Cidade</button>
-          <button class="btn filled" data-value="interior" aria-pressed="true">Interior</button>
-          <button class="btn outline" data-value="floresta">Floresta</button>
+          <button class="btn outline" data-value="oceano" data-i18n="opt.terrain.ocean">Oceano</button>
+          <button class="btn outline" data-value="costa" data-i18n="opt.terrain.coast">Costa/Cidade</button>
+          <button class="btn filled" data-value="interior" aria-pressed="true" data-i18n="opt.terrain.inland">Interior</button>
+          <button class="btn outline" data-value="floresta" data-i18n="opt.terrain.forest">Floresta</button>
         </div>
       </div>
 
       <div class="actions">
-        <button class="btn primary" id="btn-simular">▶ Simular</button>
+        <button class="btn primary" id="btn-simular" data-i18n="btn.simulate">▶ Simular</button>
       </div>
     </section>
 
     <!-- Painel direito: Mapa & Resultados -->
     <section class="panel panel-right">
       <h2 class="panel-title">
-        🌐 Mapa & Resultados
+        <span data-i18n="panel.mapResults">🌐 Mapa & Resultados</span>
         <button id="btn-info" class="info-btn" aria-haspopup="dialog" aria-controls="how-modal" aria-label="Como funciona">ℹ️</button>
       </h2>
 
-
       <div class="canvas-row">
         <div class="earth-canvas" role="img" aria-label="Globo estilizado mostrando a Terra">
-          <!-- Planeta estilizado (placeholder) -->
           <div class="planet">
             <div class="continent c1"></div>
             <div class="continent c2"></div>
@@ -117,66 +122,60 @@
         </div>
 
         <aside class="results-card">
-          <!-- Exibe o NEO selecionado pelo botão da NASA -->
-          <p id="neo-selected" class="neo-selected disclaimer" aria-live="polite">NEO:</p>
+          <p id="neo-selected" class="neo-selected" aria-live="polite" data-i18n="neo.none">Objeto selecionado: —</p>
 
-          <h3>📊 Efeitos Previstos</h3>
+          <h3 data-i18n="effects.title">📊 Efeitos Previstos</h3>
 
           <div class="meter">
             <div class="meter-label">
-              <span>🌊 Tsunami</span><span class="level">ALTO</span>
+              <span data-i18n="effects.tsunami">🌊 Tsunami</span><span class="level">ALTO</span>
             </div>
-            <div class="meter-bar">
-              <span style="width: 85%"></span>
-            </div>
+            <div class="meter-bar"><span style="width: 85%"></span></div>
           </div>
 
           <div class="meter">
             <div class="meter-label">
-              <span>🕳️ Cratera</span><span class="level">MÉDIO</span>
+              <span data-i18n="effects.crater">🕳️ Cratera</span><span class="level">MÉDIO</span>
             </div>
-            <div class="meter-bar">
-              <span style="width: 60%"></span>
-            </div>
+            <div class="meter-bar"><span style="width: 60%"></span></div>
           </div>
 
           <div class="meter">
             <div class="meter-label">
-              <span>🌐 Tremor</span><span class="level">BAIXO</span>
+              <span data-i18n="effects.quake">🌐 Tremor</span><span class="level">BAIXO</span>
             </div>
-            <div class="meter-bar">
-              <span style="width: 35%"></span>
-            </div>
+            <div class="meter-bar"><span style="width: 35%"></span></div>
           </div>
+
+          <!-- Cards de números educativos -->
           <div class="facts">
-          <div class="fact">
-            <span class="fact-label">
-              Energia estimada
-              <button class="tip" aria-label="Energia estimada" data-tip="Estimativa educativa da energia cinética no impacto, em megatoneladas de TNT (Mt). Não é um modelo físico completo.">?</button>
-            </span>
-
-            <span class="fact-value" id="fact-energy">—</span>
+            <div class="fact">
+              <span class="fact-label">
+                <span data-i18n="facts.energy">Energia estimada</span>
+                <button class="tip" aria-label="Energia estimada" data-tip="Estimativa educativa da energia cinética no impacto, em megatoneladas de TNT (Mt). Não é um modelo físico completo.">?</button>
+              </span>
+              <span class="fact-value" id="fact-energy">—</span>
+            </div>
+            <div class="fact">
+              <span class="fact-label">
+                <span data-i18n="facts.crater">Cratera (~diâmetro)</span>
+                <button class="tip" aria-label="Cratera" data-tip="Estimativa simplificada do diâmetro da cratera com base na energia (escala aproximada para fins didáticos).">?</button>
+              </span>
+              <span class="fact-value" id="fact-crater">—</span>
+            </div>
+            <div class="fact">
+              <span class="fact-label">
+                <span data-i18n="facts.index">Índice de energia</span>
+                <button class="tip" aria-label="Índice de energia" data-tip="Índice 1–9 obtido por peso(tamanho) × peso(velocidade). Usado para classificar BAIXO/MÉDIO/ALTO conforme o terreno.">?</button>
+              </span>
+              <span class="fact-value" id="fact-index">—</span>
+            </div>
           </div>
-          <div class="fact">
-            <span class="fact-label">
-              Cratera (~diâmetro)
-              <button class="tip" aria-label="Cratera" data-tip="Estimativa simplificada do diâmetro da cratera com base na energia (escala aproximada para fins didáticos).">?</button>
-            </span>
 
-            <span class="fact-value" id="fact-crater">—</span>
-          </div>
-          <div class="fact">
-            <span class="fact-label">
-              Índice de energia
-              <button class="tip" aria-label="Índice de energia" data-tip="Índice 1–9 obtido por peso(tamanho) × peso(velocidade). Usado para classificar BAIXO/MÉDIO/ALTO conforme o terreno.">?</button>
-            </span>
-
-            <span class="fact-value" id="fact-index">—</span>
-          </div>
-        </div>
           <p class="disclaimer">
-            🔗 Dados: NASA NEO (tamanho/velocidade) + USGS (terreno). Versão educativa/simplificada.
+            <span data-i18n="disclaimer.base">🔗 Dados: NASA NEO (tamanho/velocidade) + USGS (terreno). Versão educativa/simplificada.</span>
           </p>
+
           <div class="export-row">
             <button class="btn" id="btn-export">📷 Baixar imagem</button>
           </div>
@@ -186,36 +185,34 @@
   </main>
 
   <footer class="app-footer">
-    <small>© Meteors Exploders — 2025 NASA Space Apps Challenge</small>
-    <small><a>https://www.spaceappschallenge.org/2025/find-a-team/meteors-exploders/</a></small>
+    <small>© Equipe Infantil — Space Apps</small>
   </footer>
 
   <!-- Modal: Como funciona -->
-<div id="how-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="how-title" hidden>
-  <div class="modal-backdrop" data-close></div>
-  <div class="modal-card" role="document">
-    <header class="modal-head">
-      <h3 id="how-title">Como funciona</h3>
-      <button class="modal-close" id="btn-close-modal" aria-label="Fechar">✖</button>
-    </header>
-    <div class="modal-body">
-      <p><strong>Fontes de dados:</strong> usamos <em>NASA NEO</em> (tamanho / velocidade) e contexto de terreno inspirado em dados do <em>USGS</em> (oceano, costa, interior, floresta) para efeitos educativos.</p>
-      <ul>
-        <li><strong>Bandas</strong>: Tamanho (pequeno/médio/gigante) e Velocidade (lento/rápido/super) são faixas simplificadas.</li>
-        <li><strong>Índice de energia</strong>: <code>energy_index = peso(tamanho) × peso(velocidade)</code>, variando de 1 a 9.</li>
-        <li><strong>Níveis</strong>: Para cada <em>terreno</em>, comparamos o índice com os <em>thresholds</em> para classificar: <strong>BAIXO</strong>, <strong>MÉDIO</strong> ou <strong>ALTO</strong>.</li>
-        <li><strong>Observação</strong>: É um modelo educativo, não uma simulação física completa.</li>
-      </ul>
-      <p>Use o botão “🔭 CARREGAR EXEMPLO” para preencher com um objeto real (simplificado) e ver o resultado.</p>
+  <div id="how-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="how-title" hidden>
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card" role="document">
+      <header class="modal-head">
+        <h3 id="how-title">Como funciona</h3>
+        <button class="modal-close" id="btn-close-modal" aria-label="Fechar">✖</button>
+      </header>
+      <div class="modal-body">
+        <p><strong>Fontes de dados:</strong> usamos <em>NASA NEO</em> (tamanho / velocidade) e contexto de terreno inspirado em dados do <em>USGS</em> (oceano, costa, interior, floresta) para efeitos educativos.</p>
+        <ul>
+          <li><strong>Bandas</strong>: Tamanho (pequeno/médio/gigante) e Velocidade (lento/rápido/super) são faixas simplificadas.</li>
+          <li><strong>Índice de energia</strong>: <code>energy_index = peso(tamanho) × peso(velocidade)</code>, variando de 1 a 9.</li>
+          <li><strong>Níveis</strong>: Para cada <em>terreno</em>, comparamos o índice com os <em>thresholds</em> para classificar: <strong>BAIXO</strong>, <strong>MÉDIO</strong> ou <strong>ALTO</strong>.</li>
+          <li><strong>Observação</strong>: É um modelo educativo, não uma simulação física completa.</li>
+        </ul>
+        <p>Use o botão “🔭 Usar Exemplo da NASA” para preencher com um objeto real (simplificado) e ver o resultado.</p>
+      </div>
+      <footer class="modal-foot">
+        <button class="btn" id="btn-ok-modal">Entendi</button>
+      </footer>
     </div>
-    <footer class="modal-foot">
-      <button class="btn" id="btn-ok-modal">Entendi</button>
-    </footer>
   </div>
-</div>
 
-
-  <!-- Importa o script da pasta /scripts -->
+  <!-- App Script -->
   <script src="scripts/script.js" defer></script>
 </body>
 </html>
