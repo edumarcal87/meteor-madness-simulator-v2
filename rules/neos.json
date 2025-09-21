@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Apophis (99942)",
+    "approx_diameter_m": 340,
+    "velocity_kms": 23,
+    "example_date": "2029-04-13",
+    "source_note": "Valores aproximados para uso educativo."
+  },
+  {
+    "name": "2012 DA14",
+    "approx_diameter_m": 45,
+    "velocity_kms": 8,
+    "example_date": "2013-02-15",
+    "source_note": "Valores aproximados para uso educativo."
+  },
+  {
+    "name": "Bennu (101955)",
+    "approx_diameter_m": 492,
+    "velocity_kms": 28,
+    "example_date": "2018-12-03",
+    "source_note": "Valores aproximados para uso educativo."
+  },
+  {
+    "name": "1998 OR2 (52768)",
+    "approx_diameter_m": 2000,
+    "velocity_kms": 8.7,
+    "example_date": "2020-04-29",
+    "source_note": "Valores aproximados para uso educativo."
+  }
+]

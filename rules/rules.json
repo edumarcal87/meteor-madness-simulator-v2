@@ -1,0 +1,48 @@
+{
+  "bands": {
+    "size": {
+      "pequeno": { "min_m": 0,   "max_m": 50 },
+      "medio":   { "min_m": 50,  "max_m": 140 },
+      "gigante": { "min_m": 140, "max_m": 100000 }
+    },
+    "speed": {
+      "lento":  { "min_kms": 0,  "max_kms": 15 },
+      "rapido": { "min_kms": 15, "max_kms": 20 },
+      "super":  { "min_kms": 20, "max_kms": 100 }
+    }
+  },
+
+  "weights": {
+    "size":  { "pequeno": 1, "medio": 2, "gigante": 3 },
+    "speed": { "lento": 1, "rapido": 2, "super": 3 }
+  },
+
+  "effects": {
+    "oceano": {
+      "tsunami": { "thresholds": [3, 6] },
+      "cratera": { "thresholds": [2, 5] },
+      "tremor":  { "thresholds": [2, 5] }
+    },
+    "costa": {
+      "tsunami": { "thresholds": [2, 5] },
+      "cratera": { "thresholds": [3, 6] },
+      "tremor":  { "thresholds": [3, 6] }
+    },
+    "interior": {
+      "tsunami": { "thresholds": [9, 9], "non_applicable": true },
+      "cratera": { "thresholds": [2, 5] },
+      "tremor":  { "thresholds": [2, 5] }
+    },
+    "floresta": {
+      "tsunami": { "thresholds": [9, 9], "non_applicable": true },
+      "cratera": { "thresholds": [2, 5] },
+      "tremor":  { "thresholds": [2, 5] }
+    }
+  },
+
+  "notes": [
+    "energy_index = weight(size) * weight(speed)  // varia de 1 a 9",
+    "Regra do nível: BAIXO se E <= thresholds[0]; MÉDIO se E <= thresholds[1]; ALTO caso contrário.",
+    "Se non_applicable = true, podemos exibir BAIXO com barra 0% (ou 'N/A' se preferir depois)."
+  ]
+}
