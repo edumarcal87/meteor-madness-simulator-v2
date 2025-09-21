@@ -4,6 +4,7 @@
 const state = {
   rules: null,
   neos: [],
+  lastNEO: null // NOVO: guarda o NEO selecionado pelo botão da NASA
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +12,34 @@ document.addEventListener('DOMContentLoaded', () => {
   loadData();
   // document.getElementById('btn-simular').addEventListener('click', simulate);
   document.getElementById('btn-nasa').addEventListener('click', pickRandomNEO);
+
+  // ---- Modal "Como funciona" ---- (já existia na etapa anterior)
+  const modal = document.getElementById('how-modal');
+  const open = document.getElementById('btn-info');
+  const closeBtn = document.getElementById('btn-close-modal');
+  const ok = document.getElementById('btn-ok-modal');
+
+  function openModal(){
+    if(!modal) return;
+    modal.hidden = false;
+    ok?.focus();
+  }
+  function closeModal(){
+    if(!modal) return;
+    modal.hidden = true;
+    open?.focus();
+  }
+
+  open?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', closeModal);
+  ok?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target.matches('.modal-backdrop,[data-close]')) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!modal || modal.hidden) return;
+    if (e.key === 'Escape') closeModal();
+  });
 });
 
 // ---- Carregamento de dados ----
@@ -41,6 +70,13 @@ function wireSelectionButtons() {
       });
       btn.classList.add('filled');
       btn.setAttribute('aria-pressed', 'true');
+
+      // NOVO: se o usuário mexer em tamanho/velocidade, desfaz o "NEO selecionado"
+      const name = group.dataset.name;
+      if (name === 'size' || name === 'speed') {
+        state.lastNEO = null;
+        setSelectedNEO(null);
+      }
     });
   });
 }
@@ -77,9 +113,10 @@ function simulate(note = '') {
     return;
   }
 
+  // Índice de energia (1..9) para classificar BAIXO/MÉDIO/ALTO
   const wSize = state.rules.weights.size[size] ?? 1;
   const wSpeed = state.rules.weights.speed[speed] ?? 1;
-  const energyIndex = wSize * wSpeed; // 1..9
+  const energyIndex = wSize * wSpeed;
 
   const effConf = state.rules.effects[terrain];
   const levels = {
@@ -90,7 +127,12 @@ function simulate(note = '') {
 
   renderLevels(levels);
   setDisclaimer(note);
-  console.log('Simulação:', { size, speed, terrain, energyIndex, levels });
+
+  // NOVO: cálculos educativos de energia/cratera
+  const numbers = computeEducationalNumbers(size, speed, state.lastNEO);
+  renderFacts(numbers, energyIndex);
+
+  console.log('Simulação:', { size, speed, terrain, energyIndex, levels, numbers });
 }
 
 function levelFromThresholds(conf, E) {
@@ -129,6 +171,7 @@ function pickRandomNEO() {
     return;
   }
   const neo = state.neos[Math.floor(Math.random() * state.neos.length)];
+  state.lastNEO = neo; // NOVO: guarda para usar nos cálculos
   const sizeBand = mapSizeToBand(neo.approx_diameter_m);
   const speedBand = mapSpeedToBand(neo.velocity_kms);
 
@@ -147,7 +190,6 @@ function mapSizeToBand(meters) {
     const b = bands[key];
     if (meters >= b.min_m && meters < b.max_m) return key;
   }
-  // fallback
   if (meters >= (bands.gigante?.min_m ?? 140)) return 'gigante';
   if (meters <= (bands.pequeno?.max_m ?? 50)) return 'pequeno';
   return 'medio';
@@ -164,39 +206,69 @@ function mapSpeedToBand(kms) {
   return 'rapido';
 }
 
+// ---- NOVO: Mostrar qual NEO foi escolhido ----
 function setSelectedNEO(neo){
   const el = document.getElementById('neo-selected');
-  if(!el || !neo) return;
-  el.textContent = `NEO: ${neo.name} - ~${neo.approx_diameter_m} m @ ~${neo.velocity_kms} km/s (${neo.example_date})`;
+  if(!el){
+    return;
+  }
+  if(!neo){
+    el.textContent = 'Objeto selecionado: —';
+    return;
+  }
+  el.textContent = `Objeto selecionado: ${neo.name} — ~${neo.approx_diameter_m} m @ ~${neo.velocity_kms} km/s (${neo.example_date})`;
 }
 
-// ---- Modal "Como funciona" ----
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('how-modal');
-  const open = document.getElementById('btn-info');
-  const closeBtn = document.getElementById('btn-close-modal');
-  const ok = document.getElementById('btn-ok-modal');
+// ---- NOVO: Cálculos educativos de energia/cratera ----
+function computeEducationalNumbers(sizeBand, speedBand, neo) {
+  // Se veio NEO, usa os valores reais; senão, usa valores "representativos" das bandas
+  const typicalDiameter = { pequeno: 35, medio: 100, gigante: 300 }; // metros
+  const typicalSpeed = { lento: 12, rapido: 18, super: 25 }; // km/s
 
-  function openModal(){
-    if(!modal) return;
-    modal.hidden = false;
-    // foco acessível
-    ok?.focus();
-  }
-  function closeModal(){
-    if(!modal) return;
-    modal.hidden = true;
-    open?.focus();
-  }
+  const d_m = neo?.approx_diameter_m ?? typicalDiameter[sizeBand] ?? 100;
+  const v_kms = neo?.velocity_kms ?? typicalSpeed[speedBand] ?? 18;
 
-  open?.addEventListener('click', openModal);
-  closeBtn?.addEventListener('click', closeModal);
-  ok?.addEventListener('click', closeModal);
-  modal?.addEventListener('click', (e) => {
-    if (e.target.matches('.modal-backdrop,[data-close]')) closeModal();
-  });
-  document.addEventListener('keydown', (e) => {
-    if (!modal || modal.hidden) return;
-    if (e.key === 'Escape') closeModal();
-  });
-});
+  // massa ~ densidade * volume; densidade rochosa ~3000 kg/m³
+  const density = 3000; // kg/m3 (educativo)
+  const r = d_m / 2;
+  const volume = (4/3) * Math.PI * Math.pow(r, 3);
+  const mass = density * volume; // kg
+  const v_ms = v_kms * 1000;
+  const energyJ = 0.5 * mass * v_ms * v_ms;
+
+  // Conversão: 1 megatonelada TNT ≈ 4.184e15 J
+  const mt = energyJ / 4.184e15;
+
+  // Estimativa educativa de diâmetro da cratera (km):
+  // aproximação simples baseada em energia: crater_km ≈ 0.30 * (Mt)^(1/3)
+  // (rótulo educativo; não substitui modelos físicos completos)
+  const crater_km = 0.30 * Math.cbrt(Math.max(mt, 0.000001));
+
+  return {
+    diameter_m: d_m,
+    velocity_kms: v_kms,
+    energy_mt: mt,
+    crater_km: crater_km
+  };
+}
+
+function renderFacts(numbers, energyIndex){
+  const e = document.getElementById('fact-energy');
+  const c = document.getElementById('fact-crater');
+  const i = document.getElementById('fact-index');
+
+  if(e) e.textContent = `${formatNumber(numbers.energy_mt, 1)} Mt TNT`;
+  if(c) c.textContent = `${formatNumber(numbers.crater_km, 2)} km`;
+  if(i) i.textContent = `${energyIndex} / 9`;
+}
+
+function formatNumber(n, digits = 1){
+  if (!isFinite(n)) return '—';
+  // Para valores muito grandes, alterna para notação compacta
+  if (n >= 1000) {
+    // ex.: 1.6k, 3.2k Mt
+    const compact = new Intl.NumberFormat('pt-BR', { notation:'compact', maximumFractionDigits:1 }).format(n);
+    return compact.replace('.', ',');
+  }
+  return n.toLocaleString('pt-BR', { maximumFractionDigits: digits, minimumFractionDigits: digits });
+}
