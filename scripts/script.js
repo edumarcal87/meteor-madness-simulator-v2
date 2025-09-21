@@ -9,7 +9,7 @@ const state = {
 document.addEventListener('DOMContentLoaded', () => {
   wireSelectionButtons();
   loadData();
-  document.getElementById('btn-simular').addEventListener('click', simulate);
+  // document.getElementById('btn-simular').addEventListener('click', simulate);
   document.getElementById('btn-nasa').addEventListener('click', pickRandomNEO);
 });
 
