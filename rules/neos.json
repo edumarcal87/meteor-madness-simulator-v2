@@ -27,4 +27,34 @@
     "example_date": "2020-04-29",
     "source_note": "Valores aproximados para uso educativo."
   }
+  ,
+  {
+    "name": "2005 YU55",
+    "approx_diameter_m": 400,
+    "velocity_kms": 13.7,
+    "example_date": "2011-11-08",
+    "source_note": "Valores aproximados para uso educativo."
+  },
+  {
+    "name": "2019 OK",
+    "approx_diameter_m": 90,
+    "velocity_kms": 24,
+    "example_date": "2019-07-25",
+    "source_note": "Valores aproximados para uso educativo."
+  },
+  {
+    "name": "2015 TB145",
+    "approx_diameter_m": 600,
+    "velocity_kms": 35,
+    "example_date": "2015-10-31",
+    "source_note": "Valores aproximados para uso educativo."
+  },
+  {
+    "name": "2004 BL86 (357439)",
+    "approx_diameter_m": 325,
+    "velocity_kms": 15.7,
+    "example_date": "2015-01-26",
+    "source_note": "Valores aproximados para uso educativo."
+  }
+
 ]

@@ -4,12 +4,15 @@
 const state = {
   rules: null,
   neos: [],
-  lastNEO: null // NOVO: guarda o NEO selecionado pelo botão da NASA
+  lastNEO: null,
+  neoIndex: -1 // índice do NEO atual (para "Próximo exemplo")
 };
+
 
 document.addEventListener('DOMContentLoaded', () => {
   wireSelectionButtons();
   loadData();
+  document.getElementById('btn-next-neo').addEventListener('click', pickNextNEO);
   document.getElementById('btn-simular').addEventListener('click', simulate);
   document.getElementById('btn-nasa').addEventListener('click', pickRandomNEO);
 
@@ -181,6 +184,10 @@ function pickRandomNEO() {
   const sizeBand = mapSizeToBand(neo.approx_diameter_m);
   const speedBand = mapSpeedToBand(neo.velocity_kms);
 
+  const idx = Math.floor(Math.random() * state.neos.length);
+  state.neoIndex = idx;
+  applyNEO(state.neos[idx]);
+
   setSelection('size', sizeBand);
   setSelection('speed', speedBand);
   // Mantém o terreno atual escolhido
@@ -189,6 +196,28 @@ function pickRandomNEO() {
   simulate(note);
   setSelectedNEO(neo);
 }
+
+function applyNEO(neo){
+  if(!neo) return;
+  state.lastNEO = neo;
+  const sizeBand = mapSizeToBand(neo.approx_diameter_m);
+  const speedBand = mapSpeedToBand(neo.velocity_kms);
+  setSelection('size', sizeBand);
+  setSelection('speed', speedBand);
+  const note = `Exemplo: ${neo.name} — diâmetro ~ ${neo.approx_diameter_m} m, velocidade ~ ${neo.velocity_kms} km/s.`;
+  simulate(note);
+  setSelectedNEO(neo);
+}
+
+function pickNextNEO(){
+  if (!state.rules || !state.neos?.length) {
+    alert('Aguarde carregar os dados…');
+    return;
+  }
+  state.neoIndex = (state.neoIndex + 1) % state.neos.length;
+  applyNEO(state.neos[state.neoIndex]);
+}
+
 
 function mapSizeToBand(meters) {
   const bands = state.rules.bands.size;
