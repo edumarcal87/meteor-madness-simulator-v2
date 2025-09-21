@@ -3,17 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meteor Madness — Simulador de Impacto</title>
+  <title>Meteor Madness — Impact Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="assets/icons/site.webmanifest">
+  <link rel="icon" href="assets/icons/favicon.ico">
 </head>
 <body>
   <header class="app-header">
     <div class="brand">
       <span class="logo">🌍</span>
-      <h1>Meteor Madness — Simulador de Impacto</h1>
+      <h1>Meteor Madness — Impact Simulator</h1>
     </div>
     <div class="version">v0.1</div>
   </header>
@@ -27,7 +32,7 @@
 
       <!-- Toolbar com o botão da NASA no topo -->
       <div class="controls-toolbar">
-        <button class="btn ghost" id="btn-nasa">🔭 Usar Exemplo da NASA</button>
+        <button class="btn ghost" id="btn-nasa">🔭 CARREGAR EXEMPLO</button>
       </div>
 
       <div class="control-group">
@@ -123,7 +128,8 @@
   </main>
 
   <footer class="app-footer">
-    <small>© Equipe Infantil — Space Apps</small>
+    <small>© Meteors Exploders — 2025 NASA Space Apps Challenge</small>
+    <small><a>https://www.spaceappschallenge.org/2025/find-a-team/meteors-exploders/</a></small>
   </footer>
 
   <!-- Modal: Como funciona -->
@@ -142,7 +148,7 @@
         <li><strong>Níveis</strong>: Para cada <em>terreno</em>, comparamos o índice com os <em>thresholds</em> para classificar: <strong>BAIXO</strong>, <strong>MÉDIO</strong> ou <strong>ALTO</strong>.</li>
         <li><strong>Observação</strong>: É um modelo educativo, não uma simulação física completa.</li>
       </ul>
-      <p>Use o botão “🔭 Usar Exemplo da NASA” para preencher com um objeto real (simplificado) e ver o resultado.</p>
+      <p>Use o botão “🔭 CARREGAR EXEMPLO” para preencher com um objeto real (simplificado) e ver o resultado.</p>
     </div>
     <footer class="modal-foot">
       <button class="btn" id="btn-ok-modal">Entendi</button>
