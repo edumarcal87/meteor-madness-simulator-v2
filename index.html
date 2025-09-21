@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meteor Madness — Simulador de Impacto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo">🌍</span>
+      <h1>Meteor Madness — Simulador de Impacto</h1>
+    </div>
+    <div class="version">v0.1 (layout)</div>
+  </header>
+
+  <main class="container">
+    <section class="panel panel-left">
+      <h2 class="panel-title">⚙️ Controles</h2>
+
+      <div class="control-group">
+        <label class="control-label">Tamanho do asteroide</label>
+        <div class="btn-group" data-name="size">
+          <button class="btn outline" data-value="pequeno">Pequeno</button>
+          <button class="btn filled" data-value="medio" aria-pressed="true">Médio</button>
+          <button class="btn outline" data-value="gigante">Gigante</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Velocidade relativa</label>
+        <div class="btn-group" data-name="speed">
+          <button class="btn outline" data-value="lento">Lento</button>
+          <button class="btn filled" data-value="rapido" aria-pressed="true">Rápido</button>
+          <button class="btn outline" data-value="super">Super</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label class="control-label">Local de impacto</label>
+        <div class="btn-group wrap" data-name="terrain">
+          <button class="btn outline" data-value="oceano">Oceano</button>
+          <button class="btn outline" data-value="costa">Costa/Cidade</button>
+          <button class="btn filled" data-value="interior" aria-pressed="true">Interior</button>
+          <button class="btn outline" data-value="floresta">Floresta</button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn ghost" id="btn-nasa">🔭 Usar Exemplo da NASA</button>
+        <button class="btn primary" id="btn-simular">▶ Simular</button>
+      </div>
+    </section>
+
+    <section class="panel panel-right">
+      <h2 class="panel-title">🌐 Mapa & Resultados</h2>
+
+      <div class="canvas-row">
+        <div class="earth-canvas" role="img" aria-label="Globo estilizado mostrando a Terra">
+          <div class="planet">
+            <div class="continent c1"></div>
+            <div class="continent c2"></div>
+            <div class="asteroid">☄️</div>
+          </div>
+        </div>
+
+        <aside class="results-card">
+          <h3>📊 Efeitos Previstos</h3>
+          <div class="meter">
+            <div class="meter-label">
+              <span>🌊 Tsunami</span><span class="level">ALTO</span>
+            </div>
+            <div class="meter-bar">
+              <span style="width: 85%"></span>
+            </div>
+          </div>
+
+          <div class="meter">
+            <div class="meter-label">
+              <span>🕳️ Cratera</span><span class="level">MÉDIO</span>
+            </div>
+            <div class="meter-bar">
+              <span style="width: 60%"></span>
+            </div>
+          </div>
+
+          <div class="meter">
+            <div class="meter-label">
+              <span>🌐 Tremor</span><span class="level">BAIXO</span>
+            </div>
+            <div class="meter-bar">
+              <span style="width: 35%"></span>
+            </div>
+          </div>
+
+          <p class="disclaimer">
+            🔗 Dados: NASA NEO (tamanho/velocidade) + USGS (terreno). Versão educativa/simplificada.
+          </p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>© Equipe Infantil — Space Apps</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
