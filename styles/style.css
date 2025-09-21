@@ -171,3 +171,10 @@ body{
   display:flex;
   justify-content:flex-end;
 }
+
+.help-text{
+  display:block;
+  margin-top:6px;
+  color:var(--muted);
+  font-size:12px;
+}

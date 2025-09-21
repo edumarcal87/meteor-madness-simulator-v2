@@ -104,36 +104,42 @@ function simulate(note = '') {
     return;
   }
 
-  const size = getSelection('size');     // pequeno | medio | gigante
-  const speed = getSelection('speed');   // lento | rapido | super
+  const size = getSelection('size');       // pequeno | medio | gigante
+  const speed = getSelection('speed');     // lento | rapido | super
   const terrain = getSelection('terrain'); // oceano | costa | interior | floresta
+  const mitigation = getSelection('mitigation') || '0d'; // NOVO
 
   if (!size || !speed || !terrain) {
     alert('Escolha tamanho, velocidade e local de impacto.');
     return;
   }
 
-  // Índice de energia (1..9) para classificar BAIXO/MÉDIO/ALTO
+  // Índice base (1..9)
   const wSize = state.rules.weights.size[size] ?? 1;
   const wSpeed = state.rules.weights.speed[speed] ?? 1;
-  const energyIndex = wSize * wSpeed;
+  const energyIndexBase = wSize * wSpeed;
+
+  // Aplica mitigação (reduz o índice)
+  const factor = mitigationFactor(mitigation);        // NOVO
+  const energyIndexEff = Math.max(1, Math.min(9, energyIndexBase * factor)); // 1..9
 
   const effConf = state.rules.effects[terrain];
   const levels = {
-    tsunami: levelFromThresholds(effConf.tsunami, energyIndex),
-    cratera: levelFromThresholds(effConf.cratera, energyIndex),
-    tremor:  levelFromThresholds(effConf.tremor,  energyIndex),
+    tsunami: levelFromThresholds(effConf.tsunami, energyIndexEff),
+    cratera: levelFromThresholds(effConf.cratera, energyIndexEff),
+    tremor:  levelFromThresholds(effConf.tremor,  energyIndexEff),
   };
 
   renderLevels(levels);
-  setDisclaimer(note);
+  setDisclaimer(note); // mantém o disclaimer base ou o texto do NEO
 
-  // NOVO: cálculos educativos de energia/cratera
+  // Números educativos (não mudam com mitigação por enquanto)
   const numbers = computeEducationalNumbers(size, speed, state.lastNEO);
-  renderFacts(numbers, energyIndex);
+  renderFacts(numbers, energyIndexEff); // mostra o índice mitigado
 
-  console.log('Simulação:', { size, speed, terrain, energyIndex, levels, numbers });
+  console.log('Simulação:', { size, speed, terrain, mitigation, factor, energyIndexBase, energyIndexEff, levels, numbers });
 }
+
 
 function levelFromThresholds(conf, E) {
   if (!conf || conf.non_applicable) return { label: 'N/A', pct: 0 };
@@ -295,3 +301,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+function mitigationFactor(code){
+  switch(code){
+    case '10a': return 0.50; // agir muito cedo → grande redução
+    case '5a':  return 0.70;
+    case '1a':  return 0.90;
+    case '1m':  return 0.98;
+    case '0d':
+    default:    return 1.00; // último minuto → sem efeito
+  }
+}
