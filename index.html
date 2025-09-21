@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="" crossorigin=""/>
 
   <!-- Icons / Manifest -->
   <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
@@ -20,6 +21,11 @@
 
   <!-- Export image helper -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+
+   <!-- App Script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="" crossorigin="" defer></script>
+  <script src="scripts/script.js" defer></script>
+
 </head>
 <body>
   <header class="app-header">
@@ -36,7 +42,9 @@
   <main class="container">
     <!-- Painel esquerdo: Controles -->
     <section class="panel panel-left">
-      <h2 class="panel-title" data-i18n="panel.controls">⚙️ Controles</h2>
+      <h2 class="panel-title" data-i18n="panel.controls">⚙️ Controles
+        <button id="btn-info" class="info-btn" aria-haspopup="dialog" aria-controls="how-modal" aria-label="Como funciona">ℹ️</button>
+      </h2>
 
       <!-- Toolbar com botões NASA -->
       <div class="controls-toolbar">
@@ -113,16 +121,21 @@
       </h2>
 
       <div class="canvas-row">
-        <div class="earth-canvas" role="img" aria-label="Globo estilizado mostrando a Terra">
+        <div id="map" class="leaflet-map no-export" aria-label="Mapa para escolher local de impacto"></div>
+        <div class="map-info">
+          <span id="map-coords">Lat: —, Lng: —</span>
+        </div>
+
+        <!-- <div class="earth-canvas" role="img" aria-label="Globo estilizado mostrando a Terra">
           <div class="planet">
             <div class="continent c1"></div>
             <div class="continent c2"></div>
             <div class="asteroid">☄️</div>
           </div>
-        </div>
+        </div> -->
 
         <aside class="results-card">
-          <p id="neo-selected" class="neo-selected" aria-live="polite" data-i18n="neo.none">Objeto selecionado: —</p>
+          <p id="neo-selected" class="neo-selected disclaimer" aria-live="polite" data-i18n="neo.none">☄️ NEO: </p>
 
           <h3 data-i18n="effects.title">📊 Efeitos Previstos</h3>
 
@@ -211,8 +224,5 @@
       </footer>
     </div>
   </div>
-
-  <!-- App Script -->
-  <script src="scripts/script.js" defer></script>
 </body>
 </html>

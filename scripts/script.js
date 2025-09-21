@@ -120,6 +120,9 @@ const state = {
   neoIndex: -1
 };
 
+// ===== VARIABLES =====
+let map, impactMarker;
+
 // ===== BOOT =====
 document.addEventListener('DOMContentLoaded', () => {
   wireSelectionButtons();
@@ -141,7 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         const canvas = await html2canvas(rightPanel, {
           backgroundColor: null,
-          scale: window.devicePixelRatio > 1 ? 2 : 1
+          scale: window.devicePixelRatio > 1 ? 2 : 1,
+          ignoreElements: (el) => el.classList?.contains('no-export')
         });
         const link = document.createElement('a');
         link.download = `meteor-madness-${Date.now()}.png`;
@@ -179,6 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+initLeafletMap();
 
 // ===== Carregamento de dados =====
 async function loadData() {
@@ -303,6 +309,60 @@ function setDisclaimer(extraNote = '') {
   const base = i18n.t('disclaimer.base');
   disc.innerHTML = extraNote ? `☄️ ${extraNote}<br>${base}` : base;
 }
+
+function initLeafletMap(){
+  const mapEl = document.getElementById('map');
+  if (!mapEl || typeof L === 'undefined') return;
+
+  // Centro inicial: Brasil (ajuste se preferir)
+  map = L.map('map', { zoomControl: true }).setView([-15.78, -47.93], 3);
+
+  // Camada de tiles (OSM)
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 10,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Clique: posiciona marcador e oferece seleção de terreno
+  map.on('click', (e) => {
+    const { lat, lng } = e.latlng;
+    updateCoords(lat, lng);
+
+    if (!impactMarker){
+      impactMarker = L.marker([lat, lng]).addTo(map);
+    } else {
+      impactMarker.setLatLng([lat, lng]);
+    }
+
+    const popupHtml = `
+      <div class="map-popup">
+        <div><strong>Escolha o terreno aqui:</strong></div>
+        <div class="mp-row">
+          <button class="btn small outline" onclick="window.__chooseTerrain('oceano')">${i18n.t('opt.terrain.ocean')}</button>
+          <button class="btn small outline" onclick="window.__chooseTerrain('costa')">${i18n.t('opt.terrain.coast')}</button>
+          <button class="btn small outline" onclick="window.__chooseTerrain('interior')">${i18n.t('opt.terrain.inland')}</button>
+          <button class="btn small outline" onclick="window.__chooseTerrain('floresta')">${i18n.t('opt.terrain.forest')}</button>
+        </div>
+      </div>
+    `;
+    impactMarker.bindPopup(popupHtml, { closeButton: true }).openPopup();
+  });
+
+  // Função global chamada pelos botões do popup
+  window.__chooseTerrain = (value) => {
+    setSelection('terrain', value);
+    simulate(); // roda a simulação com o novo terreno
+    if (impactMarker) impactMarker.closePopup();
+  };
+}
+
+function updateCoords(lat, lng){
+  const el = document.getElementById('map-coords');
+  if (!el) return;
+  const fmt = (n) => Number(n).toFixed(2);
+  el.textContent = `Lat: ${fmt(lat)}, Lng: ${fmt(lng)}`;
+}
+
 
 // ===== NEOs (NASA exemplos educativos) =====
 function pickRandomNEO() {

@@ -157,3 +157,21 @@ body{
   .btn-group{flex-wrap:wrap}
   .facts{ grid-template-columns:1fr; }
 }
+
+/* Leaflet map */
+.leaflet-map{
+  min-height:320px; height:360px;
+  background:linear-gradient(180deg,#0a1322,#0f1b33);
+  border:1px solid #162036; border-radius:16px; overflow:hidden;
+}
+.map-info{
+  margin-top:6px; color:var(--muted); font-size:12px;
+}
+
+/* Botão pequeno usado no popup do mapa */
+.btn.small{
+  padding:6px 10px; font-size:12px; border-width:1.5px; border-radius:10px;
+}
+.map-popup .mp-row{
+  display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;
+}
